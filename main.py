@@ -44,26 +44,23 @@ def get_line_with_ext(x1, y1, x2, y2, origin_x, origin_y, rotation_degrees, pov_
     if issteep:
         x1, y1 = y1, x1
         x2, y2 = y2, x2
-        rev = False
+    rev = False
     if x1 > x2:
         x1, x2 = x2, x1
         y1, y2 = y2, y1
         rev = True
-
     # Apply rotation transformation
     angle_radians = math.radians(rotation_degrees)
     x1_new = (x1 - origin_x) * math.cos(angle_radians) - (y1 - origin_y) * math.sin(angle_radians) + origin_x
     y1_new = (x1 - origin_x) * math.sin(angle_radians) + (y1 - origin_y) * math.cos(angle_radians) + origin_y
     x2_new = (x2 - origin_x) * math.cos(angle_radians) - (y2 - origin_y) * math.sin(angle_radians) + origin_x
     y2_new = (x2 - origin_x) * math.sin(angle_radians) + (y2 - origin_y) * math.cos(angle_radians) + origin_y
-
     # Apply POV transformation
     pov_radians = math.radians(pov_degrees)
     x1_new += pov_change * math.cos(pov_radians)
     y1_new += pov_change * math.sin(pov_radians)
     x2_new += pov_change * math.cos(pov_radians)
     y2_new += pov_change * math.sin(pov_radians)
-
     deltax = x2_new - x1_new
     deltay = abs(y2_new-y1_new)
     error = int(deltax / 2)
@@ -82,7 +79,6 @@ def get_line_with_ext(x1, y1, x2, y2, origin_x, origin_y, rotation_degrees, pov_
         if error < 0:
             y += ystep
             error += deltax
-
     # Reverse the list if the coordinates were reversed
     if rev:
         points.reverse()
